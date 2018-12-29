@@ -51,6 +51,7 @@ public class MainFragment extends Fragment {
                 User user = mViewModel.getLiveData().getValue();
                 user.setFirstName("Mok" + i);
                 user.setLastName("Harry" + i);
+                mViewModel.getLiveData().setValue(user);
             }
         });
 
