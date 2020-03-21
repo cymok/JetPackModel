@@ -34,15 +34,20 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        //在ViewModelProviders.of()传入的是同一对象接收的ViewModel引用才是指向同一对象 同对象之间才可以监听数据
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         // TODO: Use the ViewModel
         final TextView tv = getView().findViewById(R.id.message);
+
+        //这里是
         mViewModel.getLiveData().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
                 tv.setText(user.getLastName() + "·" + user.getFirstName());
             }
         });
+
+        //点击时 data变化
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
